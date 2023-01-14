@@ -19,6 +19,24 @@ app.post("/studentRegister",async(req,res)=>{
         console.log(req.body);
     const pass=req.body.password
     const cpass=req.body.confirm_password
+    const pno=req.body.phoneNo
+    const wno=req.body.whatsappNo
+    const email=req.body.email
+
+    const useremail=await StudentRegister.findOne({email:email})
+    const userphone=await StudentRegister.findOne({phoneNo:pno})
+    const userwhatsapp=await StudentRegister.findOne({whatsappNo:wno})
+
+    if(useremail){
+        return res.json({message:"email"})
+    }
+    else if(userphone){
+        return res.json({message:"phone"})
+    }
+    else if(userwhatsapp){
+        return res.json({message:"whatsapp"})
+    }
+
     if(pass==cpass){
         const regStudent=new StudentRegister({
             fname:req.body.fname,
@@ -31,8 +49,8 @@ app.post("/studentRegister",async(req,res)=>{
         });
 
         // console.log(regStudent)
-        const token=await regStudent.generateAuthToken()
-        console.log("the token part: "+token);
+        // const token=await regStudent.generateAuthToken()
+        // console.log("the token part: "+token);
 
         const regSt=await regStudent.save()
         console.log("Hey Amjad REgister Successfully");
