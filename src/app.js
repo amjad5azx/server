@@ -182,7 +182,7 @@ app.get("/logout",authenticate,async(req,res)=>{
         res.clearCookie("jwt")
         await req.user.save()
         console.log("logout successfully");
-        res.render("login")
+        // res.render("login")
     } catch (e) {
         res.status(500).send(e)
     }
