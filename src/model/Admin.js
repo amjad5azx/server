@@ -2,7 +2,7 @@ const mongoose=require("mongoose")
 const bcrypt=require("bcryptjs")
 const jwt=require("jsonwebtoken")
 
-const studentSchema=new mongoose.Schema({
+const adminSchema=new mongoose.Schema({
     fname:{
         type:String,
         required:true
@@ -34,14 +34,6 @@ const studentSchema=new mongoose.Schema({
         type:String,
         required:true
     },
-    status:{
-        type:String,
-        required:true
-    },
-    zoom:{
-        type:String,
-        required:true
-    },
     password:{
         type:String,
         required:true
@@ -54,7 +46,7 @@ const studentSchema=new mongoose.Schema({
     ]
 })
 
-studentSchema.methods.generateAuthToken=async function(){
+adminSchema.methods.generateAuthToken=async function(){
     try {
         console.log(this._id);
         const token=jwt.sign({_id:this._id.toString()},"process.env.SECRET_KEY")
@@ -68,7 +60,7 @@ studentSchema.methods.generateAuthToken=async function(){
     }
 }
 
-studentSchema.pre("save",async function(next){
+adminSchema.pre("save",async function(next){
     if(this.isModified("password")){
         this.password=await bcrypt.hash(this.password,12)
         console.log(`the password is ${this.password}`);
@@ -76,6 +68,6 @@ studentSchema.pre("save",async function(next){
     next()
 })
 
-const StudentRegister=new mongoose.model("StudentData",studentSchema)
+const AdminRegister=new mongoose.model("AdminData",adminSchema)
 
-module.exports=StudentRegister
+module.exports=AdminRegister
