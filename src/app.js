@@ -180,6 +180,7 @@ app.post("/studentRegister",async(req,res)=>{
             whatsappNo:req.body.whatsappNo,
             phoneNo:req.body.phoneNo,
             email:req.body.email,
+            secret:req.body.secret,
             status:"Inactive",
             zoom:"None",
             password:req.body.password
