@@ -50,9 +50,9 @@ app.post("/teacherRegister",async(req,res)=>{
         return res.json({message:"ecpassword"})
     }
 
-    const useremail=await StudentRegister.findOne({email:email})
-    const userphone=await StudentRegister.findOne({phoneNo:pno})
-    const userwhatsapp=await StudentRegister.findOne({whatsappNo:wno})
+    const useremail=await TeacherRegister.findOne({email:email})
+    const userphone=await TeacherRegister.findOne({phoneNo:pno})
+    const userwhatsapp=await TeacherRegister.findOne({whatsappNo:wno})
 
     if(userwhatsapp){
         return res.json({message:"whatsapp"})
